@@ -1,5 +1,6 @@
 package loto;
 
+
 public class ExoLoto {
 
     private static int nbreTours;                           // deux variables pour répondre à la question de la moyenne après avoir executer 100 fois l'exercice

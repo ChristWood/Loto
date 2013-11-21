@@ -5,6 +5,9 @@
  */
 package loto;
 
+
+
+
 /**
  *
  * @author Christophe
@@ -12,49 +15,48 @@ package loto;
 public class Tirage {
 
     private final int MAX_NBRE_BOULES;
-    private int[] bouleSorties;
     private int bouleGagnante;
-    private int resultat;
+    private int bouleAuHasard;
+    private int[] boulesLoto;
 
     public Tirage() {
         MAX_NBRE_BOULES = 49;
         bouleGagnante = 0;
-        bouleSorties = new int[6];                      // variable qui va m'aider à vérifier que la boume n'est pas déjà sortie
-
+        boulesLoto = new int[MAX_NBRE_BOULES + 1];                    // Tableau qui stocke les 49 boulesEnJeu
     }
 
-    public void lancerBoule(int numBoule) {
+    public void boulesEnJeu() {
+
+        for (int i = 0; i < (MAX_NBRE_BOULES + 1); i++) {             // Remplissage du tableau avec les 49 boulesEnJeu
+            boulesLoto[i] = i;
+        }
+    }
+
+    public void lancerBoule() {                                      // méthode qui va me donner une boule aléatoirement
 
         do {
-            resultat = (int) (Math.random() * MAX_NBRE_BOULES) + 1;     // méthode qui va me donner une boule aléatoirement
-            bouleSorties[numBoule] = resultat;
+            bouleAuHasard = (int) (Math.random() * MAX_NBRE_BOULES) + 1;
         }
         while (bouleDejaSortie());
-        bouleGagnante = resultat;
-    }
+        bouleGagnante = bouleAuHasard;
+        boulesLoto[bouleAuHasard] = 0;                                 // Mise à jour du tableau des 49 boulesEnJeu. La place qu'occupait la boule gagnante porte maintenant la valeur 0.
+    }                                                                  // Et ne pourra donc plus être jouée.
 
-    private boolean bouleDejaSortie() {                                 // méthode qui vérifie que la boule n'est pas déjà sortie
-        int bouleSortie = 0;                                            // perso, je trouve ce code très moyen...
-        for (int i = 0; i < bouleSorties.length; i++) {
+    private boolean bouleDejaSortie() {                                // méthode qui vérifie que la boule n'est pas déjà sortie
 
-            if (resultat == bouleSorties[i]) {
-                bouleSortie += 1;
-            }
+        boolean test = false;
 
+        if (boulesLoto[bouleAuHasard] == bouleAuHasard) {
+            test = false;
         }
-        return (bouleSortie == 2);                                      
+        else if (boulesLoto[bouleAuHasard] == 0) {
+            test = true;
+        }
+        return test;
     }
 
     public int afficherNumero() {
 
         return bouleGagnante;
-    }
-
-    public void resetBouleSorties() {
-        for (int i = 0; i < bouleSorties.length; i++) {
-            bouleSorties[i] = 0;
-
-        }
-
     }
 }

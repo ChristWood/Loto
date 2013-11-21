@@ -5,6 +5,8 @@
  */
 package loto;
 
+import java.text.DecimalFormat;
+
 /**
  *
  * @author Christophe
@@ -16,6 +18,7 @@ public class JeuDeLoto {
     private final int MAX_BOULES_PAR_TIRAGE;
     public int[] tabResultat;                           // tabResultat sert à stocker les 6 chiffres tirés aléatoirement par le jeu
     private int nbreTirage;
+    DecimalFormat df = new DecimalFormat("###,###");    // Format d'affichage de chiffres avec un séparateur de milliers
 
     public JeuDeLoto() {
         tirage = new Tirage();
@@ -26,16 +29,17 @@ public class JeuDeLoto {
 
     }
 
-    public void tirage() {                                      
+    public void tirage() {
 
+        tirage.boulesEnJeu();
         while (grillePerdante()) {                                      // début du tirage aléatoire. Il dure tant que le joueur n'a pas eu les 6 chiffres gagnants
             for (int i = 0; i < MAX_BOULES_PAR_TIRAGE; i++) {
-                tirage.lancerBoule(i);                                  // méthode qui va donner la boule aléatoire
+                tirage.lancerBoule();                                   // méthode qui va donner la boule aléatoire
                 tabResultat[i] = tirage.afficherNumero();               // méthode qui stock le chiffre de la boule
             }
             joueur.compareGrille(tabResultat);                          // une fois que toutes les boules du tirage sont tirées, le joueur compare le résultat avec sa grille
-            tirage.resetBouleSorties();                                 // la variable tabResultat est mise à zéro avant le prochain tirage
             nbreTirage += 1;
+            tirage.boulesEnJeu();                                       // le joueur a fini de comparer sa grille. Les 49 boules sont remises en jeu
         }
         jackPot();
     }
@@ -47,7 +51,7 @@ public class JeuDeLoto {
 
     private void jackPot() {
         System.out.println("Bravo ! Vous avez gagné le jackpot !!");
-        System.out.println("Il a fallu " + nbreTirage + " tirages.");
+        System.out.println("Il a fallu " + df.format(nbreTirage) + " tirages.");
         ExoLoto.nbreTirageParTour = ExoLoto.nbreTirageParTour + nbreTirage;
     }
 }
