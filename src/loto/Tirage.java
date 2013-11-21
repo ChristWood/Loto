@@ -5,9 +5,6 @@
  */
 package loto;
 
-
-
-
 /**
  *
  * @author Christophe
@@ -22,12 +19,12 @@ public class Tirage {
     public Tirage() {
         MAX_NBRE_BOULES = 49;
         bouleGagnante = 0;
-        boulesLoto = new int[MAX_NBRE_BOULES + 1];                    // Tableau qui stocke les 49 boulesEnJeu
+        boulesLoto = new int[MAX_NBRE_BOULES + 1];                    // Tableau qui stocke les 49 boules en jeu
     }
 
     public void boulesEnJeu() {
 
-        for (int i = 0; i < (MAX_NBRE_BOULES + 1); i++) {             // Remplissage du tableau avec les 49 boulesEnJeu
+        for (int i = 0; i < (MAX_NBRE_BOULES + 1); i++) {             // Remplissage du tableau avec les 49 boules
             boulesLoto[i] = i;
         }
     }
@@ -39,7 +36,7 @@ public class Tirage {
         }
         while (bouleDejaSortie());
         bouleGagnante = bouleAuHasard;
-        boulesLoto[bouleAuHasard] = 0;                                 // Mise à jour du tableau des 49 boulesEnJeu. La place qu'occupait la boule gagnante porte maintenant la valeur 0.
+        boulesLoto[bouleAuHasard] = 0;                                 // Mise à jour du tableau des 49 boules. La place qu'occupait la boule gagnante porte maintenant la valeur 0.
     }                                                                  // Et ne pourra donc plus être jouée.
 
     private boolean bouleDejaSortie() {                                // méthode qui vérifie que la boule n'est pas déjà sortie
