@@ -5,6 +5,8 @@
  */
 package loto;
 
+import java.text.DecimalFormat;
+
 /**
  *
  * @author Christophe
@@ -12,32 +14,19 @@ package loto;
 public class Joueur {
 
     private int[] grilleJoueur;
-    private int bouleTrouvée;
+    DecimalFormat df = new DecimalFormat("###,###");    // Format d'affichage de chiffres avec un séparateur de milliers
 
     public Joueur() {
 
     }
 
     public int[] grille() {
-        grilleJoueur = new int[]{5, 10, 22, 28, 31, 45};            // grille du joueur composée de 6 chiffres
-
+        grilleJoueur = new int[]{5, 22, 31, 28, 10, 45};            // grille du joueur composée de 6 chiffres
         return grilleJoueur;
     }
 
-    public void compareGrille(int[] tabResultat) {                  // méthode qui compare la grille du joueur avec le tirage aléatoire
-
-        bouleTrouvée = 0;
-        for (int i = 0; i < grille().length; i++) {                 // début de la boucle pour comparer le tableau grille du joueur et le tableau tirage aléatoire
-            for (int j = 0; j < tabResultat.length; j++) {
-
-                if (grille()[i] == tabResultat[j]) {
-                    bouleTrouvée = bouleTrouvée + 1;                // si la variable bouleTrouvée = 6, c'est le jackpot !
-                }
-            }
-        }
-    }
-
-    public int getScore() {
-        return bouleTrouvée;
+    public void jackPot(int nbreTirage) {
+        System.out.println("Bravo ! Vous avez gagné le jackpot !!");
+        System.out.println("Il a fallu " + df.format(nbreTirage) + " tirages.");
     }
 }
